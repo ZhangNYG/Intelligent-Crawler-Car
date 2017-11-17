@@ -1,0 +1,153 @@
+C51 COMPILER V6.12  CHAOSHENGBO                                                            08/19/2013 13:04:23 PAGE 1   
+
+
+C51 COMPILER V6.12, COMPILATION OF MODULE CHAOSHENGBO
+OBJECT MODULE PLACED IN .\chaoshengbo.OBJ
+COMPILER INVOKED BY: F:\keil\new111\C51\BIN\C51.EXE .\chaoshengbo.c DEBUG OBJECTEXTEND
+
+stmt level    source
+
+   1          #include <reg51.h> 
+   2          #define uchar unsigned char 
+   3          #define uint unsigned int 
+   4          #define ulong unsigned long 
+   5          sbit p2_0 = P2^0;
+   6          sbit p2_1 = P2^1;
+   7          sbit p2_2 = P2^2;
+   8          sbit p2_3 = P2^3;
+   9          
+  10          sbit Trig =P1^0; 
+  11          sbit Echo =P3^2;
+  12          sbit test =P1^1; ///指示灯
+  13          
+  14          
+  15          uchar code table[]={0xfc,0x60,0xda,0xf2, 0x66,0xb6,0xbe,0xe0,0xfe,0xf6}; 
+  16          uchar code table1[]={0xfd,0x61,0xdb,0xf3, 0x67,0xb7,0xbf,0xe1,0xff,0xf7}; 
+  17          uchar flag,outcomeH,outcomeL,temp; 
+  18          bit succeed_flag; 
+  19          void delay(uint count)//延时
+  20          { 
+  21   1         uint i; 
+  22   1         while(count) 
+  23   1              {
+  24   2         	     i=200;
+  25   2         		 while(i>0) 
+  26   2               i--;
+  27   2               count--; 
+  28   2              }    
+  29   1      } 
+  30          
+  31          void delay_20us() //延时
+  32          { 
+  33   1         uchar bt ; 
+  34   1         for(bt=0;bt<100;bt++); 
+  35   1      } 
+  36          
+  37          void display(uint distance_date) 
+  38          { 
+  39   1          uchar m,dm,cm,mm; 
+  40   1      	m=distance_date/1000;
+  41   1          dm=distance_date%1000/100; 
+  42   1          cm=distance_date%100/10;
+  43   1          mm=distance_date%10; 
+  44   1      
+  45   1      		p2_0=0;p2_1=1;p2_2=1;p2_3=1;
+  46   1      		P0 =table[m];
+  47   1      		delay(10);
+  48   1      		P0=0x00;
+  49   1      		
+  50   1      		p2_0=1;p2_1=0;p2_2=1;p2_3=1;
+  51   1      		P0 =table[dm];
+  52   1      		delay(10);
+  53   1      		P0=0x00;
+  54   1      		
+  55   1      		p2_0=1;p2_1=1;p2_2=0;p2_3=1;
+C51 COMPILER V6.12  CHAOSHENGBO                                                            08/19/2013 13:04:23 PAGE 2   
+
+  56   1      		P0 =table1[cm];
+  57   1      		delay(10);
+  58   1      		P0=0x00;
+  59   1      		
+  60   1      		p2_0=1;p2_1=1;p2_2=1;p2_3=0;
+  61   1      		P0 =table[mm];
+  62   1      		delay(10);
+  63   1      		P0=0x00;
+  64   1      
+  65   1      
+  66   1      }
+  67          
+  68          void main(void)
+  69          {  
+  70   1      	uint distance_data; 
+  71   1      	uchar a;
+  72   1       	float tem=0.17;
+  73   1       	flag=0;//标志位，1表示收到回波，0则未收到
+  74   1       	test=0;//控制灯闪烁 
+  75   1      	Trig=0;	
+  76   1      	TMOD=0x11; //对定时器1选择16位模式
+  77   1      	IT0=0; //设置触发方式为低电平触发
+  78   1      	IE0=0;
+  79   1       	EA=1; //开总中断	
+  80   1      	ET0=0; 
+  81   1      	TR0=0; 
+  82   1      	while(1) 
+  83   1      		{ 
+  84   2      			EA=0; 
+  85   2      			TH1=0;
+  86   2      			TL1=0; 
+  87   2      			Trig=1;//让Trig引脚为高电平
+  88   2       			delay_20us();//延时20毫秒
+  89   2       			Trig=0; //产生方波
+  90   2      			while(Echo==0); //等待Echo变为低电平，即开始发送超声波
+  91   2      			TR1=1;//开始计时
+  92   2      			succeed_flag=0;
+  93   2       			EX0=1; 
+  94   2      			TF1=0; 
+  95   2      			EA=1; 
+  96   2       			while((TH1<25)&&(!IE0));//等待25毫秒或者中断产生（即收到回波）
+  97   2       			TR1=0; //停止计时
+  98   2      			EX0=0; //关闭中断
+  99   2      			if(succeed_flag==1)//如果收到回波
+ 100   2       				{ 
+ 101   3      					distance_data=outcomeH; //先保存高8位
+ 102   3      					distance_data<<=8; //将高8位左移，低8位则全置0
+ 103   3      					distance_data=distance_data|outcomeL;  	//将高8位组成新的16位数据				
+ 104   3       					distance_data*=tem; 
+ 105   3      					distance_data=distance_data*126000/120000; //代入晶振频率算出距离
+ 106   3       					for(a=300;a>0;a--)
+ 107   3       						{
+ 108   4       							display(distance_data);//现实距离
+ 109   4       						} 
+ 110   3      				} 
+ 111   2      			if(succeed_flag==0) //如果没有收到回波
+ 112   2      				{ 
+ 113   3      					distance_data=0; 
+ 114   3      					display(distance_data);
+ 115   3      					test = !test; 
+ 116   3      				} 
+ 117   2      		} 
+C51 COMPILER V6.12  CHAOSHENGBO                                                            08/19/2013 13:04:23 PAGE 3   
+
+ 118   1      } 
+ 119          
+ 120          INTO_() interrupt 0
+ 121          { 
+ 122   1      	outcomeH =TH1; 
+ 123   1      	outcomeL =TL1;
+ 124   1       	succeed_flag=1; 
+ 125   1      	EX0=0; 
+ 126   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    381    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

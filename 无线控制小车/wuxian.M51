@@ -1,0 +1,171 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/24/2013  16:14:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE wuxian.obj TO wuxian RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  wuxian.obj (WUXIAN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?SIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  wuxian (WUXIAN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008BH     UNIT         ?C?LIB_CODE
+            CODE    008EH     005DH     UNIT         ?PR?_DISPLAY?WUXIAN
+            CODE    00EBH     0043H     UNIT         ?PR?_DELAY?WUXIAN
+            CODE    012EH     0022H     UNIT         ?PR?MAIN?WUXIAN
+            CODE    0150H     000CH     UNIT         ?C_C51STARTUP
+            CODE    015CH     000AH     UNIT         ?CO?WUXIAN
+
+
+
+OVERLAY MAP OF MODULE:   wuxian (WUXIAN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?WUXIAN
+
+?PR?MAIN?WUXIAN                -----    -----
+  +--> ?PR?_DISPLAY?WUXIAN
+
+?PR?_DISPLAY?WUXIAN            0008H    0002H
+  +--> ?PR?_DELAY?WUXIAN
+
+?PR?_DELAY?WUXIAN              -----    -----
+  +--> ?CO?WUXIAN
+
+
+
+SYMBOL TABLE OF MODULE:  wuxian (WUXIAN)
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/24/2013  16:14:51  PAGE 2
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        WUXIAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  C:015CH         PUBLIC        table
+  C:010DH         PUBLIC        _delay
+  C:012EH         PUBLIC        main
+  B:0090H.0       PUBLIC        p1_0
+  B:0090H.1       PUBLIC        p1_1
+  B:00A0H.0       PUBLIC        p2_0
+  B:0090H.2       PUBLIC        p1_2
+  B:00A0H.1       PUBLIC        p2_1
+  B:0090H.3       PUBLIC        p1_3
+  B:00A0H.2       PUBLIC        p2_2
+  B:00A0H.3       PUBLIC        p2_3
+  C:0094H         PUBLIC        _display
+  C:00EDH         SYMBOL        L?0022
+  C:00F8H         SYMBOL        L?0023
+  -------         PROC          L?0021
+  -------         ENDPROC       L?0021
+  C:00EDH         SYMBOL        L?0022
+  C:00F8H         SYMBOL        L?0023
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        a
+  -------         DO            
+  D:0006H         SYMBOL        k
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:010DH         LINE#         20
+  C:010DH         LINE#         21
+  C:010DH         LINE#         23
+  C:0118H         LINE#         24
+  C:012DH         LINE#         26
+  -------         ENDPROC       _DELAY
+  C:008EH         SYMBOL        L?0025
+  -------         PROC          L?0024
+  -------         ENDPROC       L?0024
+  C:008EH         SYMBOL        L?0025
+  -------         PROC          _DISPLAY
+  D:0002H         SYMBOL        a
+  -------         DO            
+  D:0008H         SYMBOL        k
+  -------         ENDDO         
+  C:0094H         LINE#         32
+  C:0098H         LINE#         33
+  C:0098H         LINE#         34
+  C:009EH         LINE#         36
+  C:00ABH         LINE#         37
+  C:00ABH         LINE#         38
+  C:00B3H         LINE#         39
+  C:00B7H         LINE#         40
+  C:00BAH         LINE#         43
+  C:00C2H         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/24/2013  16:14:51  PAGE 3
+
+
+  C:00C4H         LINE#         45
+  C:00C7H         LINE#         47
+  C:00CFH         LINE#         48
+  C:00D1H         LINE#         49
+  C:00D4H         LINE#         51
+  C:00DCH         LINE#         52
+  C:00E4H         LINE#         53
+  C:00E7H         LINE#         54
+  C:00EAH         LINE#         55
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        datavalue
+  -------         ENDDO         
+  C:012EH         LINE#         61
+  C:012EH         LINE#         62
+  C:012EH         LINE#         66
+  C:012EH         LINE#         67
+  C:012EH         LINE#         71
+  C:0131H         LINE#         72
+  C:0133H         LINE#         73
+  C:0136H         LINE#         74
+  C:0139H         LINE#         75
+  C:013BH         LINE#         76
+  C:013EH         LINE#         77
+  C:013EH         LINE#         78
+  C:0141H         LINE#         79
+  C:0143H         LINE#         80
+  C:0146H         LINE#         81
+  C:0149H         LINE#         82
+  C:0149H         LINE#         83
+  C:014BH         LINE#         84
+  C:014EH         LINE#         85
+  C:014EH         LINE#         88
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        WUXIAN
+
+  -------         MODULE        ?C?SIDIV
+  C:0003H         PUBLIC        ?C?SIDIV
+  -------         ENDMOD        ?C?SIDIV
+
+  -------         MODULE        ?C?UIDIV
+  C:0039H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=11.0 xdata=0 code=358
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

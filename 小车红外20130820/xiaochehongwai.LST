@@ -1,0 +1,125 @@
+C51 COMPILER V9.01   XIAOCHEHONGWAI                                                        08/23/2013 11:39:16 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE XIAOCHEHONGWAI
+OBJECT MODULE PLACED IN xiaochehongwai.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE xiaochehongwai.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg51.h>
+   2          
+   3          #include<stdlib.h>
+   4          #define uchar unsigned char
+   5          #define uint unsigned int
+   6          uint a,b,c,d,t;
+   7          sbit in1=P1^1;
+   8          sbit in2=P1^2;
+   9          sbit in3=P1^3;
+  10          sbit in4=P1^4;
+  11          sbit light=P1^5;
+  12          sbit right=P0^0;
+  13          sbit lift=P0^1;
+  14           
+  15          void delay(uint a)
+  16          { 
+  17   1      uint i,j,k;
+  18   1      
+  19   1      for(i=a;i>0;i--)
+  20   1          for(j=100;j>0;j--)
+  21   1              for(k=100;k>0;k--);
+  22   1      }
+  23          void init()      //初始化函数 
+  24          
+  25          { 
+  26   1      
+  27   1          t = 0; 
+  28   1      
+  29   1           
+  30   1      
+  31   1          
+  32   1      
+  33   1          TMOD = 0x02;    //设置定时器0为工作方式2 
+  34   1      
+  35   1          TH0 = 100;        //装初值                          
+  36   1      
+  37   1          TL0 = 7;                                 
+  38   1      
+  39   1          EA = 1;         //开总中断 
+  40   1      
+  41   1          ET0 = 1;        //开定时器0中断 
+  42   1      
+  43   1          TR0 = 1;        //启动定时0 
+  44   1      
+  45   1          
+  46   1      }
+  47          void main(void)
+  48          {
+  49   1      init();
+  50   1              
+  51   1      while(1)
+  52   1      {       
+  53   2          srand(t);
+  54   2          a=((char)rand())%10;
+  55   2          b=(a+1)%2; 
+C51 COMPILER V9.01   XIAOCHEHONGWAI                                                        08/23/2013 11:39:16 PAGE 2   
+
+  56   2          c=a%2;   
+  57   2              right=1;
+  58   2              lift=1;
+  59   2              in1=1;
+  60   2              in2=0;
+  61   2              in3=0;
+  62   2              in4=1;
+  63   2              if(light==0)
+  64   2                      {
+  65   3                       right=0;
+  66   3                       lift=0;
+  67   3                       delay(5);
+  68   3                       right=1;
+  69   3                       lift=1;
+  70   3                       in1=b;
+  71   3                       in2=c;
+  72   3                       in3=b;
+  73   3                   in4=c;
+  74   3                       delay(4);
+  75   3                       right=0;
+  76   3                       lift=0;
+  77   3                       delay(10);
+  78   3                      
+  79   3                       }
+  80   2                
+  81   2      
+  82   2      
+  83   2      
+  84   2      
+  85   2      }        
+  86   1      }
+  87          void time0() interrupt 1     //定时器0中断 
+  88          
+  89          {         
+  90   1      
+  91   1          t++;        //时间加1 
+  92   1      
+  93   1          if(t == 100) 
+  94   1      
+  95   1          { 
+  96   2      
+  97   2              t = 0;  
+  98   2      
+  99   2          } 
+ 100   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    222    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

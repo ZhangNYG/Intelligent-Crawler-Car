@@ -1,0 +1,301 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/21/2013  19:47:15  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE chaoshen.obj TO chaoshen RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  chaoshen.obj (CHAOSHEN)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ULDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ULCMP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  chaoshen (CHAOSHEN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000FH     UNIT         ?DT?CHAOSHEN
+            DATA    0017H     0004H     UNIT         _DATA_GROUP_
+                    001BH     0005H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?CHAOSHEN
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     UNIT         ?PR?ZD0?CHAOSHEN
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     000AH     UNIT         ?CO?CHAOSHEN
+                    0018H     0003H                  *** GAP ***
+            CODE    001BH     0003H     ABSOLUTE     
+            CODE    001EH     0352H     UNIT         ?C?LIB_CODE
+            CODE    0370H     008CH     UNIT         ?C_C51STARTUP
+            CODE    03FCH     007DH     UNIT         ?PR?MAIN?CHAOSHEN
+            CODE    0479H     0072H     UNIT         ?PR?ZD3?CHAOSHEN
+            CODE    04EBH     0062H     UNIT         ?PR?CONUT?CHAOSHEN
+            CODE    054DH     0058H     UNIT         ?PR?_DISPLAY?CHAOSHEN
+            CODE    05A5H     003AH     UNIT         ?PR?_DELAY?CHAOSHEN
+            CODE    05DFH     0020H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   chaoshen (CHAOSHEN)
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/21/2013  19:47:15  PAGE 2
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?PR?ZD3?CHAOSHEN               -----    -----
+  +--> ?PR?_DISPLAY?CHAOSHEN
+
+?PR?_DISPLAY?CHAOSHEN          0017H    0004H
+  +--> ?PR?_DELAY?CHAOSHEN
+
+?PR?_DELAY?CHAOSHEN            -----    -----
+  +--> ?CO?CHAOSHEN
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?CHAOSHEN
+  +--> ?C_INITSEG
+
+?PR?MAIN?CHAOSHEN              -----    -----
+  +--> ?PR?CONUT?CHAOSHEN
+  +--> ?PR?_DELAY?CHAOSHEN
+
+
+
+SYMBOL TABLE OF MODULE:  chaoshen (CHAOSHEN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        CHAOSHEN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:000EH         PUBLIC        table
+  C:04EBH         PUBLIC        Conut
+  D:00A8H         PUBLIC        IE
+  C:0003H         PUBLIC        zd0
+  C:0479H         PUBLIC        zd3
+  D:00B8H         PUBLIC        IP
+  B:0020H.0       PUBLIC        flag
+  D:0008H         PUBLIC        timer
+  C:03FCH         PUBLIC        main
+  B:00A0H.6       PUBLIC        RX
+  B:00A0H.7       PUBLIC        TX
+  D:000AH         PUBLIC        time
+  B:00A0H.0       PUBLIC        p2_0
+  D:000CH         PUBLIC        posit
+  B:00A0H.1       PUBLIC        p2_1
+  B:00A0H.2       PUBLIC        p2_2
+  D:0098H         PUBLIC        SCON
+  B:00A0H.3       PUBLIC        p2_3
+  B:00B0H.0       PUBLIC        ena
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/21/2013  19:47:15  PAGE 3
+
+
+  B:00B0H.2       PUBLIC        enb
+  D:000DH         PUBLIC        J
+  B:00A8H.1       PUBLIC        ET0
+  D:000FH         PUBLIC        K
+  B:00A8H.3       PUBLIC        ET1
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  D:008AH         PUBLIC        TL0
+  D:008BH         PUBLIC        TL1
+  D:0011H         PUBLIC        S
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  C:054DH         PUBLIC        _Display
+  D:00C8H         PUBLIC        T2CON
+  D:0015H         PUBLIC        i
+  C:05CDH         PUBLIC        _Delay
+  D:00D0H         PUBLIC        PSW
+  C:05AFH         SYMBOL        L?0028
+  C:05B8H         SYMBOL        L?0029
+  -------         PROC          L?0027
+  -------         ENDPROC       L?0027
+  C:05AFH         SYMBOL        L?0028
+  C:05B8H         SYMBOL        L?0029
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        s
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:05CDH         LINE#         35
+  C:05CDH         LINE#         36
+  C:05CDH         LINE#         38
+  C:05DEH         LINE#         40
+  -------         ENDPROC       _DELAY
+  -------         PROC          _DISPLAY
+  D:0017H         SYMBOL        x
+  C:054DH         LINE#         45
+  C:0555H         LINE#         46
+  C:0555H         LINE#         48
+  C:055DH         LINE#         49
+  C:0563H         LINE#         50
+  C:0566H         LINE#         53
+  C:056EH         LINE#         54
+  C:0572H         LINE#         55
+  C:0575H         LINE#         57
+  C:057DH         LINE#         58
+  C:058BH         LINE#         59
+  C:058EH         LINE#         61
+  C:0596H         LINE#         62
+  C:059BH         LINE#         63
+  C:059EH         LINE#         65
+  C:05A0H         LINE#         66
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          CONUT
+  C:04EBH         LINE#         72
+  C:04EBH         LINE#         73
+  C:04EBH         LINE#         74
+  C:04FBH         LINE#         75
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/21/2013  19:47:15  PAGE 4
+
+
+  C:04FEH         LINE#         76
+  C:0500H         LINE#         78
+  C:0527H         LINE#         79
+  C:053FH         LINE#         80
+  C:053FH         LINE#         81
+  C:0541H         LINE#         82
+  C:054CH         LINE#         83
+  C:054CH         LINE#         84
+  -------         ENDPROC       CONUT
+  -------         PROC          ZD0
+  C:0003H         LINE#         86
+  C:0003H         LINE#         90
+  C:0005H         LINE#         91
+  -------         ENDPROC       ZD0
+  -------         PROC          ZD3
+  C:0479H         LINE#         93
+  C:0496H         LINE#         95
+  C:0499H         LINE#         96
+  C:049CH         LINE#         97
+  C:04A7H         LINE#         98
+  C:04AFH         LINE#         99
+  C:04B8H         LINE#         100
+  C:04B8H         LINE#         101
+  C:04BEH         LINE#         102
+  C:04C0H         LINE#         104
+  C:04C1H         LINE#         105
+  C:04C2H         LINE#         106
+  C:04C3H         LINE#         107
+  C:04C4H         LINE#         108
+  C:04C5H         LINE#         109
+  C:04C6H         LINE#         110
+  C:04C7H         LINE#         111
+  C:04C8H         LINE#         112
+  C:04C9H         LINE#         113
+  C:04CAH         LINE#         114
+  C:04CBH         LINE#         115
+  C:04CCH         LINE#         116
+  C:04CDH         LINE#         117
+  C:04CEH         LINE#         119
+  C:04D0H         LINE#         120
+  C:04D0H         LINE#         121
+  -------         ENDPROC       ZD3
+  -------         PROC          MAIN
+  C:03FCH         LINE#         124
+  C:03FCH         LINE#         126
+  C:03FCH         LINE#         127
+  C:03FFH         LINE#         128
+  C:0402H         LINE#         129
+  C:0404H         LINE#         130
+  C:0407H         LINE#         131
+  C:040AH         LINE#         132
+  C:040CH         LINE#         133
+  C:040EH         LINE#         134
+  C:0410H         LINE#         135
+  C:0412H         LINE#         136
+  C:0414H         LINE#         137
+  C:0416H         LINE#         138
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/21/2013  19:47:15  PAGE 5
+
+
+  C:0418H         LINE#         140
+  C:042CH         LINE#         143
+  C:042FH         LINE#         144
+  C:0431H         LINE#         145
+  C:0434H         LINE#         146
+  C:0436H         LINE#         147
+  C:0439H         LINE#         148
+  C:043CH         LINE#         149
+  C:0443H         LINE#         150
+  C:0446H         LINE#         153
+  C:0448H         LINE#         157
+  C:045CH         LINE#         158
+  C:045CH         LINE#         161
+  C:045FH         LINE#         162
+  C:0461H         LINE#         163
+  C:0464H         LINE#         164
+  C:0466H         LINE#         165
+  C:0469H         LINE#         166
+  C:046CH         LINE#         167
+  C:0473H         LINE#         168
+  C:0476H         LINE#         170
+  C:0478H         LINE#         172
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        CHAOSHEN
+
+  -------         MODULE        ?C?FPMUL
+  C:001EH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPDIV
+  C:0127H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FCAST
+  C:01CEH         PUBLIC        ?C?FCASTC
+  C:01C9H         PUBLIC        ?C?FCASTI
+  C:01C4H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0202H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?ULDIV
+  C:02BFH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?LNEG
+  C:0351H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?ULCMP
+  C:035FH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+Program Size: data=28.1 xdata=0 code=1527
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

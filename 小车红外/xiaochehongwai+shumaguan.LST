@@ -1,0 +1,161 @@
+C51 COMPILER V9.01   XIAOCHEHONGWAI_SHUMAGUAN                                              08/20/2013 13:44:16 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE XIAOCHEHONGWAI_SHUMAGUAN
+OBJECT MODULE PLACED IN xiaochehongwai+shumaguan.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE xiaochehongwai+shumaguan.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg51.h>
+   2          
+   3          #include<stdlib.h>
+   4          #define uchar unsigned char
+   5          #define uint unsigned int
+   6          uint a,b,c,d,t;
+   7          sbit     P2_0=P2^0;
+   8          sbit     P2_1=P2^1;
+   9          sbit     P2_2=P2^2;      
+  10          sbit     P2_3=P2^3;
+  11          uchar code table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+  12          sbit in1=P1^1;
+  13          sbit in2=P1^2;
+  14          sbit in3=P1^3;
+  15          sbit in4=P1^4;
+  16          sbit light=P1^5;
+  17          sbit right=P0^0;
+  18          sbit lift=P0^1;
+  19          void delay(uint a)
+  20          { 
+  21   1      uint i,j,k;
+  22   1      
+  23   1      for(i=a;i>0;i--)
+  24   1          for(j=3;j>0;j--)
+  25   1              for(k=100;k>0;k--);
+  26   1      }
+  27          void display()
+  28          {
+  29   1         P2_0 = 0;P2_1 = 1;P2_2 = 1;P2_3 = 1;
+  30   1         P0=table[0];
+  31   1         delay(1);
+  32   1         
+  33   1      
+  34   1         P2_0 = 1;P2_1 = 0;P2_2 = 1;P2_3 = 1;
+  35   1         P0=table[0];
+  36   1         delay(1);
+  37   1        
+  38   1      
+  39   1         P2_0 = 1;P2_1 = 1;P2_2 = 0;P2_3 = 1;
+  40   1         P0=table[t%10];
+  41   1         delay(1);
+  42   1      
+  43   1         P2_0 = 1;P2_1 = 1;P2_2 = 1;P2_3 = 0;
+  44   1         P0=table[t/10];
+  45   1         delay(1);
+  46   1      }
+  47           
+  48          
+  49          void init()      //初始化函数 
+  50          
+  51          { 
+  52   1      
+  53   1          t = 0; 
+  54   1      
+  55   1           
+C51 COMPILER V9.01   XIAOCHEHONGWAI_SHUMAGUAN                                              08/20/2013 13:44:16 PAGE 2   
+
+  56   1      
+  57   1          
+  58   1      
+  59   1          TMOD = 0x01;    //设置定时器0为工作方式2 
+  60   1      
+  61   1          TH0 =(65535-6)/256;        //装初值                          
+  62   1                                                       
+  63   1          TL0 =(65535-6)%256;                                 
+  64   1      
+  65   1          EA = 1;         //开总中断 
+  66   1      
+  67   1          ET0 = 1;        //开定时器0中断 
+  68   1      
+  69   1          TR0 = 1;        //启动定时0 
+  70   1      
+  71   1          
+  72   1      }
+  73          void main(void)
+  74          {
+  75   1      init();
+  76   1              
+  77   1      while(1)
+  78   1      {       
+  79   2               display();
+  80   2          srand(t);
+  81   2          a=((char)rand())%10;
+  82   2          b=(a+1)%2; 
+  83   2          c=a%2;   
+  84   2              right=1;
+  85   2              lift=1;
+  86   2              in1=1;
+  87   2              in2=0;
+  88   2              in3=0;
+  89   2              in4=1;
+  90   2              delay(10);
+  91   2              
+  92   2      
+  93   2              if(light==0)
+  94   2                      {
+  95   3                       right=0;
+  96   3                       lift=0;
+  97   3                       delay(150);
+  98   3                       right=1;
+  99   3                       lift=1;
+ 100   3                       in1=b;
+ 101   3                       in2=c;
+ 102   3                       in3=b;
+ 103   3                   in4=c;
+ 104   3                       delay(120);
+ 105   3                       right=0;
+ 106   3                       lift=0;
+ 107   3                       delay(150);
+ 108   3                      
+ 109   3                       
+ 110   3                       
+ 111   3                       }
+ 112   2                
+ 113   2      
+ 114   2      
+ 115   2      
+ 116   2      
+ 117   2      }        
+C51 COMPILER V9.01   XIAOCHEHONGWAI_SHUMAGUAN                                              08/20/2013 13:44:16 PAGE 3   
+
+ 118   1      }
+ 119          void time0() interrupt 1     //定时器0中断 
+ 120          
+ 121          {         
+ 122   1      
+ 123   1          t++;
+ 124   1                     //时间加1 
+ 125   1      
+ 126   1          if(t == 100) 
+ 127   1      
+ 128   1          { 
+ 129   2      
+ 130   2              t = 0;  
+ 131   2      
+ 132   2          } 
+ 133   1      
+ 134   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    337    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
